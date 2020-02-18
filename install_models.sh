@@ -43,6 +43,6 @@ for f in ${networks[@]} ; do
     echo " - ${mdir}/${f} already downloaded"
   else
     echo " - ${f}"
-    wget -q ${s3}/${f}
+    curl -s ${s3}/${f} --output ${f} > /dev/null
   fi
 done
