@@ -58,14 +58,14 @@ InstallMosesTools () {
                "tokenizer/basic-protected-patterns" \
               )
 
-  wdir="${tools_ext}/moses-tokenizer/tokenizer"
+  wdir="${tools_ext}/moses-tokenizer/"
   MKDIR ${wdir}
   cd ${wdir}
 
   for f in ${moses_files[@]} ; do
     if [ ! -f `basename ${f}` ] ; then
       echo " - download ${f}"
-      wget -q ${moses_git}/${f}
+      curl -s ${moses_git}/${f} --output ${f} > /dev/null
     fi
   done
   chmod 755 *perl
@@ -76,7 +76,7 @@ InstallMosesTools () {
       "ca" "cs" "de" "el" "en" "es" "fi" "fr" "ga" "hu" "is" \
       "it" "lt" "lv" "nl" "pl" "pt" "ro" "ru" "sk" "sl" "sv" \
       "ta" "yue" "zh" )
-  wdir="${tools_ext}/moses-tokenizer/share/nonbreaking_prefixes"
+  wdir="${tools_ext}/moses-tokenizer/"
   MKDIR ${wdir}
   cd ${wdir}
 
@@ -84,7 +84,7 @@ InstallMosesTools () {
     f="${moses_non_breakings}.${l}"
     if [ ! -f `basename ${f}` ] ; then
       echo " - download ${f}"
-      wget -q ${moses_git}/${f} 
+      curl -s ${moses_git}/${f} --output ${f} > /dev/null
     fi
   done
 }
@@ -100,7 +100,7 @@ InstallFastBPE () {
   cd ${tools_ext}
   if [ ! -x fastBPE/fast ] ; then
     echo " - download fastBPE software from github"
-    wget https://github.com/glample/fastBPE/archive/master.zip
+    curl -LO https://github.com/glample/fastBPE/archive/master.zip
     unzip master.zip
     /bin/rm master.zip
     mv fastBPE-master fastBPE
@@ -126,7 +126,7 @@ InstallMecab () {
   cd ${tools_ext}
   if [ ! -x mecab/mecab/bin/mecab ] ; then
     echo " - download mecab from github"
-    wget https://github.com/taku910/mecab/archive/master.zip
+    curl -LO https://github.com/taku910/mecab/archive/master.zip
     unzip master.zip 
     #/bin/rm master.zip
     if [ ! -s mecab/bin/mecab ] ; then
